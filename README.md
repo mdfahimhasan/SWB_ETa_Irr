@@ -17,6 +17,23 @@ git clone https://github.com/mdfahimhasan/SWB_Irr.git
 
 To run the scripts - use the `SWB_driver.ipynb` file to run the model.
 
+## Input data requirement and units 
+The following variables are required as daily inputs for the model, and must be formatted as described below:  
+
+  - `DOY (Day of the Year)`: Integer value representing the day of the year (1–365/366).  
+  - `U (Wind Speed)`: Horizontal wind speed measured over a grass surface at a height of 2 meters above the ground, in meters per second (m/s). This should be the mean daily value.  
+  - `Ta (Air Temperature)`: Mean daily air temperature in degrees Celsius (°C).  
+  - `RH min (Minimum Relative Humidity)`: Mean daily minimum relative humidity value in percentage (%).  
+  - `ETo (Reference Evapotranspiration)`: Grass reference evapotranspiration, in millimeters per day (mm/d).  
+  - `Precip (Precipitation)`: Daily precipitation in millimeters (mm). If no precipitation is applied on a given day, this value should be set to 0 or the code will do that automatically.
+  - `hc (Crop Canopy Height)`: Crop canopy height, in meters (m). This is a critical input that varies throughout the season.  
+  - `Irr (Irrigation Water Depth)` Depth of irrigation water applied, in millimeters (mm). If no irrigation is applied on a given day, this value should be set to 0 or the code will do that automatically.
+
+A sample input data file (.csv format) will look like this- 
+
+<img src="figs/data_format.PNG" height="260"/>
+
+
 ## Dependencies
 - pandas
 - matplotlib
