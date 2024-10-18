@@ -10,7 +10,7 @@ The purpose of this repository is to provide scripts and data for managing soil 
 - Estimation of daily soil water deficit and deep percolation.
 - Irrigation scheduling recommendation using the dual crop coefficient approach.
 
-## Installation and run the code
+## To install and run the scripts
 To use the code in this repository, clone it to your local machine using Git:
 
 git clone https://github.com/mdfahimhasan/SWB_Irr.git
