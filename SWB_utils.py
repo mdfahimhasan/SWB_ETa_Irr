@@ -46,13 +46,14 @@ def correct_Kc_for_arid_clim(Kc_table, u2, RHmin, h,  season, target_climate):
     return Kc_corrected
 
 
-def decide_crop_growth_stage(input_csv_data, emergence_day, full_canopy_day, Lin, Lmid):
+def decide_crop_growth_stage(input_csv_df, emergence_day, full_canopy_day, Lin, Lmid):
     """
     Decides on crop growth stage based on crop emergence day, full canopy day, Length of initial stage, and length of
     mid-season. Implements the timelines of Figure 8.2 of Hoffman 2007.
 
-    :param input_csv_data: Filepath of input csv data. Must have a 'Date' column and DOY column.
-                           Date column should be in format '%d-%mmm-%Y' (e.g., 15-Jul-2005).
+    :param input_csv_df: Filepath of input csv data. Can also be a dataframe object.
+                         Must have a 'Date' column and DOY column.
+                         Date column should be in format '%d-%mmm-%Y' (e.g., 15-Jul-2005).
     :param emergence_day: Date of crop emergence in '%d-%mmm-%Y' format.
     :param full_canopy_day: Date of full canopy day in '%d-%mmm-%Y' format.
     :param Lin: Length of initial growth stage. Comes from Table 8.3 Hoffman 2007.
@@ -62,7 +63,12 @@ def decide_crop_growth_stage(input_csv_data, emergence_day, full_canopy_day, Lin
     :return: Returns the dataframe with a column named 'growth_stage' ('ini', 'dev', 'mid', 'late').
     """
     # loading data and converting date to datetime
-    df = pd.read_csv(input_csv_data)
+    if '.csv' in input_csv_df:
+        df = pd.read_csv(input_csv_df)
+
+    else:
+        df = input_csv_df
+
     df['Date'] = pd.to_datetime(df['Date'], format='%d-%b-%Y')
 
     # converting emergence_day and full_canopy_day to datetime, and getting DOY
@@ -547,7 +553,8 @@ def curate_reorder_P_Irr_data(input_df, precip_col='Precip', Irr_col='Irr'):
     return input_df
 
 
-def run_daily_water_balance(input_df, ETref_col='ETo', precip_col='Precip', Irr_col='Irr'):
+def run_daily_water_balance(input_df, ETref_col='ETo', precip_col='Precip', Irr_col='Irr',
+                            output_csv='SWB_Irr_output.csv'):
     """
     Performs a daily soil water balance calculation, including evapotranspiration, irrigation, precipitation,
     soil water deficit, and deep percolation. The calculations follow the FAO-56 model principles and Hoffman 2007.
@@ -560,6 +567,7 @@ def run_daily_water_balance(input_df, ETref_col='ETo', precip_col='Precip', Irr_
     :param ETref_col: Column name for reference evapotranspiration (ETref). Default set to 'ETo'.
     :param precip_col: Column name for precipitation. Default set to 'Precip'.
     :param Irr_col: Column name for irrigation. Default set to 'Irr'.
+    :param output_csv: Output csv filepath.
 
     :return: The modified dataframe with the results of the daily water balance calculations. The following columns
              are added to the dataframe:
@@ -639,7 +647,7 @@ def run_daily_water_balance(input_df, ETref_col='ETo', precip_col='Precip', Irr_
     swb_df.loc[:, 'irrigate'] = irrigate_decision_list
 
     # saving results
-    swb_df.to_csv('SWB_Irr.csv')
+    swb_df.to_csv(output_csv)
 
     print('Daily soil water balance run completed...')
 
