@@ -1,7 +1,7 @@
 # Soil Moisture Balance Irrigation Model
 This repository contains code and resources related to Soil Water Balance (SWB) Irrigation Management for the course `CIVE 519: Irrigation Water Management`. The focus of the project is on developing and analyzing irrigation scheduling and water use for agricultural crops using FAO 56 method.
 
-<img src="figs/all_coefs.png" height="240"/> <img src="figs/ETref_ETa.png" height="240"/> <img src="figs/deficit_vs_dMAD_actualIrr.png" height="280"/>
+<img src="figs/all_coefs.png" height="280"/> <img src="figs/ETref_ETa.png" height="280"/> <img src="figs/deficit_vs_dMAD_actualIrr.png" height="280"/>
 
 ## Project Description
 The purpose of this repository is to provide scripts and data for managing soil water balance (SWB) model and irrigation scheduling for the effective management of water resources in agricultural settings. The project includes:
