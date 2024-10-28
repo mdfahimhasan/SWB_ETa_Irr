@@ -318,6 +318,7 @@ def estimate_few(input_df, fw, Kcmin, canopyH_col='hc'):
     # creating function to estimate fraction of canopy cover (fc)
     # eq. 8.65 in Hoffman 2007
     def calc_fc(Kcb_daily, Kcmax_daily, Kcmin, hc):
+        # Kcb - Kc_min limited to ≥ 0.01; not explicitly applying it as fc set between 0-0.99 later
         fc = ((Kcb_daily - Kcmin) / (Kcmax_daily - Kcmin)) ** (1 + 0.5 * hc)
 
         # fc have to be limited within 0 to 0.99
@@ -398,6 +399,11 @@ def calc_Ke(Kr, Kcmax_daily, Kcb_daily, few):
     """
     Estimates evaporation coefficient (Ke).
     Implements eq. 8.60 of Hoffman 2007.
+
+    # Ke between 0-1.4 for Kco (based on ETo)
+    # Ke between 0-1 for Kcr (based on ETr)
+    # these ranges are not set explicitly in this function.
+    Further reading and understanding needed before incorporating them.
 
     :param Kr: Evaporation reduction coefficient (Kr) value for the day.
     :param Kcmax_daily: Kcmax value for the day.
