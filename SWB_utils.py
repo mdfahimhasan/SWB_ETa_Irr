@@ -1,7 +1,10 @@
-# author: Md Fahim Hasan
+# Author: Md Fahim Hasan
 # PhD Candidate
 # Civil and Environmental Engineering
 # Colorado State University
+
+# This script simulates FAO56 approach to estimate ETa using dual crop coefficient and simulates soil water balance
+# to estimate associated hydrologic fluxes
 
 import pandas as pd
 
